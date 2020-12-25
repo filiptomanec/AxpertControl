@@ -14,7 +14,7 @@ import Pwm from "./Pwm";
 import TextTeplota from "./TextTeplota";
 import MyButton from "./MyButton";
 
-let SERVER = "http://localhost:1001/api";
+let SERVER = "http://192.168.100.114:1001/api";
 
 class Routes extends React.Component {
 
@@ -179,22 +179,22 @@ class Routes extends React.Component {
                     <Container>
                         <Card style={{ marginBottom: "10px" }}>
                             <Card.Body>
-                                <TextTeplota value={this.state.data.AC_output_active_power} label={"AC_output_active_power"} />
-                                <TextTeplota value={this.state.data.AC_output_apparent_power} label={"AC_output_apparent_power"} />
-                                <TextTeplota value={this.state.data.AC_output_frequency} label={"AC_output_frequency"} />
-                                <TextTeplota value={this.state.data.AC_output_voltage} label={"AC_output_voltage"} />
-                                <TextTeplota value={this.state.data.Battery_capacity} label={"Battery_capacity"} />
-                                <TextTeplota value={this.state.data.Battery_charging_current} label={"Battery_charging_current"} />
-                                <TextTeplota value={this.state.data.Battery_discharge_current} label={"Battery_discharge_current"} />
-                                <TextTeplota value={this.state.data.Battery_voltage} label={"Battery_voltage"} />
-                                <TextTeplota value={this.state.data.Grid_frequency} label={"Grid_frequency"} />
-                                <TextTeplota value={this.state.data.Grid_voltage} label={"Grid_voltage"} />
-                                <TextTeplota value={this.state.data.InverterTemperature} label={"InverterTemperature"} />
-                                <TextTeplota value={this.state.data.Output_Load_Percent} label={"Output_Load_Percent"} />
-                                <TextTeplota value={this.state.data.PV_Input_Voltage} label={"PV_Input_Voltage"} />
-                                <TextTeplota value={this.state.data.PV_Input_Watt} label={"PV_Input_Watt"} />
-                                <TextTeplota value={this.state.data.PV_input_current_for_battery} label={"PV_input_current_for_battery"} />
-                                <TextTeplota value={this.state.data.Timestamp} label={"Timestamp"} />
+                                <TextTeplota value={this.state.data.AC_output_active_power} label={"AC - výstupní výkon"} jednotka={"W"}/>
+                                <TextTeplota value={this.state.data.AC_output_apparent_power} label={"AC - zdánlivý výkon"} jednotka={"kVA"}/>
+                                <TextTeplota value={this.state.data.AC_output_frequency} label={"AC - výstupní frekvence"} jednotka={"Hz"}/>
+                                <TextTeplota value={this.state.data.AC_output_voltage} label={"AC - výstupní napětí"} jednotka={"V"}/>
+                                <TextTeplota value={this.state.data.Battery_capacity} label={"Kapacita baterie"} jednotka={"%"}/>
+                                <TextTeplota value={this.state.data.Battery_charging_current} label={"Nabíjecí proud baterie"} jednotka={"A"}/>
+                                <TextTeplota value={this.state.data.Battery_discharge_current} label={"Vybíjecí proud baterie"} jednotka={"A"}/>
+                                <TextTeplota value={this.state.data.Battery_voltage} label={"Napětí baterie"} jednotka={"V"}/>
+                                <TextTeplota value={this.state.data.Grid_frequency} label={"Síťová frekvence"} jednotka={"Hz"}/>
+                                <TextTeplota value={this.state.data.Grid_voltage} label={"Síťové napětí"} jednotka={"V"}/>
+                                <TextTeplota value={this.state.data.InverterTemperature} label={"Teplota měniče"} jednotka={"°C"}/>
+                                <TextTeplota value={this.state.data.Output_Load_Percent} label={"Zatížení měniče"} jednotka={"%"}/>
+                                <TextTeplota value={this.state.data.PV_Input_Voltage} label={"PV - vstupní napětí"} jednotka={"V"}/>
+                                <TextTeplota value={this.state.data.PV_Input_Watt} label={"PV - vstupní výkon"} jednotka={"W"}/>
+                                <TextTeplota value={this.state.data.PV_input_current_for_battery} label={"PV - vstupní proud do baterie"} jednotka={"A"}/>
+                                <TextTeplota value={this.state.data.Timestamp} label={"Datum"} />
                             </Card.Body>
                         </Card>
                     </Container>
