@@ -2,21 +2,12 @@ import React from "react";
 import Navbar from 'react-bootstrap/Navbar';
 import Card from 'react-bootstrap/Card';
 import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
 import { Container, Row, Col } from 'react-bootstrap';
-import NumericInput from 'react-numeric-input';
-import { Chart } from "react-google-charts";
 
-
-import RangeSlider from 'react-bootstrap-range-slider';
-
-import Gpio from "./Gpio";
-import Pwm from "./Pwm";
-import TextTeplota from "./TextTeplota";
-import MyButton from "./MyButton";
+import TextHodnota from "./TextHodnota";
 import MyChart from "./MyChart";
 
-let SERVER = "http://localhost:1001/api";
+let SERVER = "http://192.168.0.101:1001/api";
 
 class Routes extends React.Component {
 
@@ -28,7 +19,9 @@ class Routes extends React.Component {
             errMessage: "",
             data: null,
             chartData: {},
-            avOutData: {}
+            avOutData: {},
+            batteryOutData: {},
+            windowWidth: window.innerWidth
         }
     }
 
@@ -74,6 +67,18 @@ class Routes extends React.Component {
                 }
             ]
         }
+        this.state.batteryOutData = {
+            labels: mojedata.chartTime,
+            datasets: [
+                {
+                    label: 'Napětí [V]',
+                    data: mojedata.batteryChartData,
+                    backgroundColor: [
+                        'rgba(155, 132, 200, 0.6)'
+                    ]
+                }
+            ]
+        }
     }
 
     ajaxSendClick(button) {
@@ -108,40 +113,50 @@ class Routes extends React.Component {
             this.setChartData(this.state.data);
             body = (
                 <div>
-                    <Container>
-                        <Row>
+                    <Row>
+                        <Col md>
+                            <Container>
+
+                                <Col md>
+                                    <Card style={{ marginBottom: "10px" }}>
+                                        <Card.Body>
+                                            <TextHodnota value={this.state.data.AC_output_active_power} label={"AC - výstupní výkon"} jednotka={"W"} />
+                                            <TextHodnota value={this.state.data.AC_output_apparent_power} label={"AC - zdánlivý výkon"} jednotka={"kVA"} />
+                                            <TextHodnota value={this.state.data.AC_output_frequency} label={"AC - výstupní frekvence"} jednotka={"Hz"} />
+                                            <TextHodnota value={this.state.data.AC_output_voltage} label={"AC - výstupní napětí"} jednotka={"V"} />
+                                            <TextHodnota value={this.state.data.Battery_capacity} label={"Kapacita baterie"} jednotka={"%"} />
+                                            <TextHodnota value={this.state.data.Battery_charging_current} label={"Nabíjecí proud baterie"} jednotka={"A"} />
+                                            <TextHodnota value={this.state.data.Battery_discharge_current} label={"Vybíjecí proud baterie"} jednotka={"A"} />
+                                            <TextHodnota value={this.state.data.Battery_voltage} label={"Napětí baterie"} jednotka={"V"} />
+                                            <TextHodnota value={this.state.data.Grid_frequency} label={"Síťová frekvence"} jednotka={"Hz"} />
+                                            <TextHodnota value={this.state.data.Grid_voltage} label={"Síťové napětí"} jednotka={"V"} />
+                                            <TextHodnota value={this.state.data.InverterTemperature} label={"Teplota měniče"} jednotka={"°C"} />
+                                            <TextHodnota value={this.state.data.Output_Load_Percent} label={"Zatížení měniče"} jednotka={"%"} />
+                                            <TextHodnota value={this.state.data.PV_Input_Voltage} label={"PV - vstupní napětí"} jednotka={"V"} />
+                                            <TextHodnota value={this.state.data.PV_Input_Watt} label={"PV - vstupní výkon"} jednotka={"W"} />
+                                            <TextHodnota value={this.state.data.PV_input_current_for_battery} label={"PV - vstupní proud do baterie"} jednotka={"A"} />
+                                            <TextHodnota value={this.state.data.Timestamp} label={"Datum"} />
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                {/*
                             <Col md>
                                 <Card style={{ marginBottom: "10px" }}>
                                     <Card.Body>
-                                        <TextTeplota value={this.state.data.AC_output_active_power} label={"AC - výstupní výkon"} jednotka={"W"} />
-                                        <TextTeplota value={this.state.data.AC_output_apparent_power} label={"AC - zdánlivý výkon"} jednotka={"kVA"} />
-                                        <TextTeplota value={this.state.data.AC_output_frequency} label={"AC - výstupní frekvence"} jednotka={"Hz"} />
-                                        <TextTeplota value={this.state.data.AC_output_voltage} label={"AC - výstupní napětí"} jednotka={"V"} />
-                                        <TextTeplota value={this.state.data.Battery_capacity} label={"Kapacita baterie"} jednotka={"%"} />
-                                        <TextTeplota value={this.state.data.Battery_charging_current} label={"Nabíjecí proud baterie"} jednotka={"A"} />
-                                        <TextTeplota value={this.state.data.Battery_discharge_current} label={"Vybíjecí proud baterie"} jednotka={"A"} />
-                                        <TextTeplota value={this.state.data.Battery_voltage} label={"Napětí baterie"} jednotka={"V"} />
-                                        <TextTeplota value={this.state.data.Grid_frequency} label={"Síťová frekvence"} jednotka={"Hz"} />
-                                        <TextTeplota value={this.state.data.Grid_voltage} label={"Síťové napětí"} jednotka={"V"} />
-                                        <TextTeplota value={this.state.data.InverterTemperature} label={"Teplota měniče"} jednotka={"°C"} />
-                                        <TextTeplota value={this.state.data.Output_Load_Percent} label={"Zatížení měniče"} jednotka={"%"} />
-                                        <TextTeplota value={this.state.data.PV_Input_Voltage} label={"PV - vstupní napětí"} jednotka={"V"} />
-                                        <TextTeplota value={this.state.data.PV_Input_Watt} label={"PV - vstupní výkon"} jednotka={"W"} />
-                                        <TextTeplota value={this.state.data.PV_input_current_for_battery} label={"PV - vstupní proud do baterie"} jednotka={"A"} />
-                                        <TextTeplota value={this.state.data.Timestamp} label={"Datum"} />
+
                                     </Card.Body>
                                 </Card>
                             </Col>
-                            <Col md>
-                                <Card style={{ marginBottom: "10px" }}>
-                                    <Card.Body>
-                                        <MyChart chartData={this.state.chartData} label='PV - vstupní výkon' legendPosition="bottom"></MyChart>
-                                        <MyChart chartData={this.state.avOutData} label='AC - výstupní výkon'legendPosition="bottom"></MyChart>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </Container>
+                            */}
+
+                            </Container>
+                        </Col>
+                        <Col md>
+                            <MyChart chartData={this.state.chartData} label='PV - vstupní výkon' legendPosition="bottom" winWidth={this.state.windowWidth}></MyChart>
+                            <MyChart chartData={this.state.avOutData} label='AC - výstupní výkon' legendPosition="bottom" winWidth={this.state.windowWidth}></MyChart>
+                            <MyChart chartData={this.state.batteryOutData} label='Napětí baterie' legendPosition="bottom" winWidth={this.state.windowWidth}></MyChart>
+                        </Col>
+                    </Row>
                 </div>
             );
         }

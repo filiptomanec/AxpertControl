@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes, { string } from "prop-types";
-import { Bar, Line, Pie } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
+import PropTypes from "prop-types";
 
 class MyChart extends React.Component {
 
@@ -18,10 +18,19 @@ class MyChart extends React.Component {
         location: 'Home'
     }
 
+    setSize(width) {
+        if(width < 800){
+            return 250;
+        } else {
+            return 150;
+        }
+    }
+
     render() {
         return (
             <div className="chart">
                 <Line
+                    height = {this.setSize(this.props.winWidth)}
                     data={this.props.chartData}
                     options={{
                         title: {
@@ -41,7 +50,8 @@ class MyChart extends React.Component {
 }
 
 MyChart.propTypes = {
-    chartData: {}
+    chartData: {},
+    winWidth: PropTypes.number
 };
 
 export default MyChart;
