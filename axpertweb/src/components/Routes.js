@@ -111,6 +111,7 @@ class Routes extends React.Component {
             );
         } else {
             this.setChartData(this.state.data);
+
             body = (
                 <div>
                     <Row>
@@ -152,9 +153,9 @@ class Routes extends React.Component {
                             </Container>
                         </Col>
                         <Col md>
-                            <MyChart chartData={this.state.chartData} label='PV - vstupní výkon' legendPosition="bottom" winWidth={this.state.windowWidth}></MyChart>
-                            <MyChart chartData={this.state.avOutData} label='AC - výstupní výkon' legendPosition="bottom" winWidth={this.state.windowWidth}></MyChart>
-                            <MyChart chartData={this.state.batteryOutData} label='Napětí baterie' legendPosition="bottom" winWidth={this.state.windowWidth}></MyChart>
+                            <MyChart chartData={this.state.chartData} label='PV - vstupní výkon' legendPosition="bottom" winWidth={this.state.windowWidth} battery={false}></MyChart>
+                            <MyChart chartData={this.state.avOutData} label='AC - výstupní výkon' legendPosition="bottom" winWidth={this.state.windowWidth} battery={false}></MyChart>
+                            <MyChart chartData={this.state.batteryOutData} label='Napětí baterie' legendPosition="bottom" winWidth={this.state.windowWidth} battery={true} min={this.state.data.min} max={this.state.data.max}></MyChart>
                         </Col>
                     </Row>
                 </div>
@@ -165,7 +166,7 @@ class Routes extends React.Component {
         return (
             <Container>
                 <Navbar expand="lg" variant="light" bg="light" style={{ marginBottom: "10px" }}>
-                    <Navbar.Brand>Smart Home</Navbar.Brand>
+                    <Navbar.Brand>Domácí FVE</Navbar.Brand>
                 </Navbar>
                 {body}
             </Container>
