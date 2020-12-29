@@ -135,7 +135,7 @@ class Routes extends React.Component {
                                             <TextHodnota value={this.state.data.Output_Load_Percent} label={"Zatížení měniče"} jednotka={"%"} />
                                             <TextHodnota value={this.state.data.PV_Input_Voltage} label={"PV - vstupní napětí"} jednotka={"V"} />
                                             <TextHodnota value={this.state.data.PV_Input_Watt} label={"PV - vstupní výkon"} jednotka={"W"} />
-                                            <TextHodnota value={this.state.data.PV_input_current_for_battery} label={"PV - vstupní proud do baterie"} jednotka={"A"} />
+                                            <TextHodnota value={this.state.data.PV_input_current_for_battery} label={"PV - vstupní proud"} jednotka={"A"} />
                                             <TextHodnota value={this.state.data.Timestamp} label={"Datum"} />
                                         </Card.Body>
                                     </Card>
