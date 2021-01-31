@@ -7,7 +7,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import TextHodnota from "./TextHodnota";
 import MyChart from "./MyChart";
 
-let SERVER = "http://192.168.0.101:1001/api";
+let SERVER = "http://localhost:1001/api";
 
 class Routes extends React.Component {
 
@@ -118,10 +118,11 @@ class Routes extends React.Component {
                         <Col md>
                             <Container>
 
-                                <Col md>
+                            <Col md>
                                     <Card style={{ marginBottom: "10px" }}>
                                         <Card.Body>
-                                            <TextHodnota value={this.state.data.AC_output_active_power} label={"AC - výstupní výkon"} jednotka={"W"} />
+                                        
+                                            <TextHodnota value={this.state.data.AC_output_active_power} label={"AC - výstupní výkon"} jednotka={"W"}/>
                                             <TextHodnota value={this.state.data.AC_output_apparent_power} label={"AC - zdánlivý výkon"} jednotka={"kVA"} />
                                             <TextHodnota value={this.state.data.AC_output_frequency} label={"AC - výstupní frekvence"} jednotka={"Hz"} />
                                             <TextHodnota value={this.state.data.AC_output_voltage} label={"AC - výstupní napětí"} jednotka={"V"} />
@@ -137,6 +138,20 @@ class Routes extends React.Component {
                                             <TextHodnota value={this.state.data.PV_Input_Watt} label={"PV - vstupní výkon"} jednotka={"W"} />
                                             <TextHodnota value={this.state.data.PV_input_current_for_battery} label={"PV - vstupní proud"} jednotka={"A"} />
                                             <TextHodnota value={this.state.data.Timestamp} label={"Datum"} />
+                                            
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col md>
+                                    <Card style={{ marginBottom: "10px" }}>
+                                        <Card.Body>
+                                            <div><strong>AC - výstupní výkon</strong></div>
+                                            <TextHodnota value={this.state.data.AcVystupMax} label={"Max"} jednotka={"W"}/>
+                                            <TextHodnota value={this.state.data.AcVystupMin} label={"Min"} jednotka={"W"}/>
+                                            
+                                            <div><strong>PV - vstupní výkon</strong></div>
+                                            <TextHodnota value={this.state.data.PvVstupMax} label={"Max"} jednotka={"W"}/>
+                                            <TextHodnota value={this.state.data.PvVstupMin} label={"Min"} jednotka={"W"}/>
                                         </Card.Body>
                                     </Card>
                                 </Col>
